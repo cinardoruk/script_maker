@@ -1,57 +1,31 @@
 #!/bin/zsh
-<<COMMENT
+
+:<<COMMENT
 # idiomatic parameter and option handling in sh
-while test $# -gt 0
-do
-    case "$1" in
-        --opt1) echo "option 1"
-            ;;
-        --opt2) echo "option 2"
-            ;;
-        --*) echo "bad option $1"
-            ;;
-        *) echo "argument $1"
-            ;;
-    esac
-    shift
-done
-
-exit 0
-
 TODO
-* use the design above to fix script
+* give use the option to create a global scripts file AND add it to path
+* detect whether such a directory exists, prompt user to create it first time -g option is chosen
+* create an index of scripts inside global_script_path. each script's top comment section is copied. turning this script into a script management tool as well.
 
 COMMENT
 
-set -x
+# global script path
+dest="$HOME/Scripts/"
 
-#global and local flags
-
-flag1="-l"
-flag2="-g"
-
+# usage message to be displayed if user calls script incorrectly
 usage="Usage: $0 <-l | -g> script_name
 Creates script_name.sh and gives it execute permission
--l : create script_name.sh in current dir
--g : create script_name.sh in home/user/Scripts, which is included in \$PATH"
+-l : create script_name.sh in current working dir
+-g : create script_name.sh in a pre-determined dir, which is included in \$PATH
+edit the variable dest at the beginning of the script to choose this directory
+and add it to your \$PATH"
 
-
-# Check if any arguments were provided
-if [ $# -eq 0 ]; then
-    echo $usage
+# in all valid calls to the script, there are two arguments,
+# the first is -l | -g, the second is a script name
+# if some other number of arguments were provided, exit
+if [ $# -ne 2 ]; then
+    echo "$usage"
     exit 1
-fi
-#echo $1
-# Parse the first argument to determine the flag
-if [ $1 == "-l" ]; then
-	flag1="true"
-	shift # Shift the arguments to remove the first argument
-elif [ $1 == "-g" ]; then
-	flag2="true"
-	shift
-else
-	echo $usage
-	exit 1
 fi
 
 
@@ -60,36 +34,57 @@ fi
 shebang="#!$SHELL"
 description='<<COMMENT
 Optional description of script.
-TODO list too keep track of tasks.
-etc.
+TODO
+* task
 COMMENT'
 
+# functions for making local or global scripts
+# functions can call variables that were declared outside
 
-# make new script according to selected flag
-if [ "$flag1" == "true" ]; then
+function local_script {
+
 	echo "Creating local script."
 
-	file="$1.sh"
+	filename="$1.sh"
 
-	echo $shebang > $file
-	echo $description >> $file
+	echo $shebang > $filename
+	echo $description >> $filename
 
-	chmod u+x $file
+	chmod u+x $filename
 
-	$EDITOR $file
+	$EDITOR $filename
+}
 
-elif [ "$flag2" == "true" ]; then
+function global_script {
+
 	echo "Creating global script."
 
-	file="$1.sh"
-    	dest="$HOME/Scripts/$file"
+	filename="$1.sh"
 
-    	echo $shebang > $dest
+	#use the dest var that was determined all the way at the top
+	dest="$dest"/"$filename"
+
+	echo $shebang > $dest
 	echo $description >> $dest
 	chmod u+x $dest
 
 	$EDITOR $dest
-else
-	echo "something went very wrong"
-	exit 1
-fi
+}
+
+# select action for provided flag
+case "$1" in
+	-l)
+		echo "option 1"
+		local_script $2
+		exit 0
+		;;
+        -g)
+		echo "option 2"
+		global_script $2
+		exit 0
+		;;
+        *)
+		echo $usage
+		exit 1
+		;;
+esac
