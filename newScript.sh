@@ -6,6 +6,8 @@ TODO
 * give use the option to create a global scripts file AND add it to path
 * detect whether such a directory exists, prompt user to create it first time -g option is chosen
 * create an index of scripts inside global_script_path. each script's top comment section is copied. turning this script into a script management tool as well.
+*install newScript.sh itself into the global_scripts path
+*make -l the default option?
 
 COMMENT
 
