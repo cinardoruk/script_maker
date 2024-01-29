@@ -15,7 +15,7 @@ Arguments:
  
 Notes:  
 	To use -g, edit the variable dest at the beginning of the script to choose a directory
-and add it to your \$PATH. This is usually done by adding this line
+and add it to your $PATH. This is usually done by adding this line
 
 	export PATH="$PATH:/your/directory/path"  
  
