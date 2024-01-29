@@ -13,7 +13,7 @@ COMMENT
 dest="$HOME/Scripts/"
 
 # usage message to be displayed if user calls script incorrectly
-usage="Usage: $0 <-l | -g> script_name
+usage="Usage: $0 [-l | -g] <script_name>
 Creates script_name.sh and gives it execute permission
 -l : create script_name.sh in current working dir
 -g : create script_name.sh in a pre-determined dir, which is included in \$PATH
