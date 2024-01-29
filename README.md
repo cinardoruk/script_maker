@@ -1,5 +1,6 @@
 # script_maker
 .sh that creates an .sh and gives it execute permission, for convenience
+
 Usage: $0 <-l | -g> script_name
 Creates script_name.sh and gives it execute permission
 -l : create script_name.sh in current working dir
