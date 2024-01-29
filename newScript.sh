@@ -34,7 +34,7 @@ fi
 # some variables to contain boilerplate text for new scripts
 
 shebang="#!$SHELL"
-description='<<COMMENT
+description=':<<COMMENT
 Optional description of script.
 TODO
 * task
