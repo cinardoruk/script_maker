@@ -1,9 +1,22 @@
 # script_maker
-.sh that creates an .sh and gives it execute permission, for convenience
 
-Usage: $0 <-l | -g> script_name
-Creates script_name.sh and gives it execute permission
--l : create script_name.sh in current working dir
--g : create script_name.sh in a pre-determined dir, which is included in \$PATH
-Edit the variable dest at the beginning of the script to choose this directory
-and add it to your \$PATH
+Creates a bash script and gives it execute permission.
+
+## Usage 
+
+Usage: $0 [-l | -g] <script_name>
+
+Options:  
+	-l : create script_name.sh in current working dir (local script)  
+	-g : create script_name.sh in a pre-determined dir (global script). The dir should be included in $PATH
+ 
+Arguments:  
+	<script_name> Name of the file to be created. Don't include ".sh"
+ 
+Notes:  
+	To use -g, edit the variable dest at the beginning of the script to choose a directory
+and add it to your \$PATH. This is usually done by adding this line
+
+	export PATH="$PATH:/your/directory/path"  
+ 
+to a config file your shell sources when you start it.
