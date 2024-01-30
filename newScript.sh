@@ -8,9 +8,11 @@ TODO
 * create an index of scripts inside global_script_path. each script's top comment section is copied. turning this script into a script management tool as well.
 *install newScript.sh itself into the global_scripts path
 *make -l the default option?
+* make program detect the shell used, add "alias newScript=path/to/newScript.sh"
 
 COMMENT
 
+# CHANGE THIS TO A PATH OF YOUR CHOOSING
 # global script path
 dest="$HOME/Scripts/"
 
