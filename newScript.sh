@@ -14,6 +14,7 @@ COMMENT
 
 # CHANGE THIS TO A PATH OF YOUR CHOOSING
 # global script path
+# /.local/bin could also be good
 dest="$HOME/Scripts/"
 
 # usage message to be displayed if user calls script incorrectly
@@ -32,7 +33,6 @@ if [ $# -ne 2 ]; then
     exit 1
 fi
 
-
 # some variables to contain boilerplate text for new scripts
 
 shebang="#!$SHELL"
@@ -49,7 +49,8 @@ function local_script {
 
 	echo "Creating local script."
 
-	filename="$1.sh"
+	#do not use .sh at the end so that scripts can be called by name alone
+	filename="$1"
 
 	echo $shebang > $filename
 	echo $description >> $filename
